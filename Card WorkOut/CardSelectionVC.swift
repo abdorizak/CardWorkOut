@@ -13,7 +13,7 @@ class CardSelectionVC: UIViewController {
     
     @IBOutlet var buttons: [UIButton]!
     
-    var cards: [UIImage] = []
+    var cards: [UIImage] = Card.allValues
     
     var timer: Timer?
     
@@ -28,6 +28,11 @@ class CardSelectionVC: UIViewController {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        timer?.invalidate()
+    }
+    
     func startTime(){
         timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(showRandomImage), userInfo: nil, repeats: true)
     }
@@ -37,15 +42,14 @@ class CardSelectionVC: UIViewController {
     }
     
     @IBAction func stopBtnTapped(_ sender: UIButton) {
-        
+        timer?.invalidate()
     }
 
     @IBAction func restartBtnTapped(_ sender: UIButton) {
-        
+        timer?.invalidate()
+        startTime()
     }
     
-    @IBAction func rulesBtnTapped(_ sender: UIButton) {
-        
-    }
+
     
 }
